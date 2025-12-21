@@ -1,5 +1,5 @@
 const map = L.map('map').setView([-15.78, -47.93], 5);
-};
+
 
 
 document.getElementById('remove').onclick = () => {
