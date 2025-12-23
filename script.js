@@ -30,30 +30,33 @@ function atualizarLinha() {
 }
 
 // Botões
-document.getElementById("add").onclick = () => {
+document.getElementById("add").onclick = function () {
   modo = "add";
   alert("Clique no mapa para adicionar a parada");
 };
 
-document.getElementById("remove").onclick = () => {
+document.getElementById("remove").onclick = function () {
   modo = "remove";
   alert("Clique na parada para remover");
 };
 
-document.getElementById("manual").onclick = () => {
+document.getElementById("manual").onclick = function () {
   modo = "manual";
   alert("Clique no mapa para definir sua localização");
 };
 
-document.getElementById("gps").onclick = () => {
-  navigator.geolocation.getCurrentPosition(pos => {
+document.getElementById("gps").onclick = function () {
+  navigator.geolocation.getCurrentPosition(function (pos) {
     const latlng = [pos.coords.latitude, pos.coords.longitude];
-    L.marker(latlng).addTo(map).bindPopup("Você está aqui").openPopup();
+    L.marker(latlng)
+      .addTo(map)
+      .bindPopup("Você está aqui")
+      .openPopup();
     map.setView(latlng, 15);
   });
 };
 
-document.getElementById("save").onclick = () => {
+document.getElementById("save").onclick = function () {
   rotaAtual.nome =
     document.getElementById("routeName").value || "rota_sem_nome";
 
@@ -67,7 +70,7 @@ document.getElementById("save").onclick = () => {
   a.click();
 };
 
-document.getElementById("new").onclick = () => {
+document.getElementById("new").onclick = function () {
   rotaAtual = { nome: "", paradas: [] };
   marcadores.forEach(m => map.removeLayer(m));
   marcadores = [];
@@ -76,15 +79,15 @@ document.getElementById("new").onclick = () => {
 };
 
 // Clique no mapa
-map.on("click", e => {
+map.on("click", function (e) {
   if (modo === "add") {
     const nome = prompt("Nome da parada:");
     const horario = prompt("Horário (opcional):");
 
     const marker = L.marker(e.latlng).addTo(map);
-    marker.bindPopup(`<b>${nome}</b><br>${horario || ""}`);
+    marker.bindPopup("<b>" + nome + "</b><br>" + (horario || ""));
 
-    marker.on("click", () => {
+    marker.on("click", function () {
       if (modo === "remove") {
         const i = marcadores.indexOf(marker);
         if (i > -1) {
@@ -100,8 +103,8 @@ map.on("click", e => {
     rotaAtual.paradas.push({
       lat: e.latlng.lat,
       lng: e.latlng.lng,
-      nome,
-      horario
+      nome: nome,
+      horario: horario
     });
 
     atualizarLinha();
