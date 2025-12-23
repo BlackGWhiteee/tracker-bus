@@ -1,21 +1,39 @@
-// Inicialização do mapa
-const map = L.map("map").setView([-15.78, -47.93], 5);
+var map = L.map("map").setView([-15.78, -47.93], 5);
 
-// Camadas
-const mapaPadrao = L.tileLayer(
+// Mapa normal
+var mapa = L.tileLayer(
   "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
   { attribution: "© OpenStreetMap" }
 );
 
-const mapaSatelite = L.tileLayer(
+// Satélite
+var satelite = L.tileLayer(
   "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
   { attribution: "Tiles © Esri" }
 );
 
-mapaPadrao.addTo(map);
+// Rótulos (cidades, ruas, bairros)
+var labels = L.tileLayer(
+  "https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png",
+  {
+    attribution: "© OpenStreetMap, © CARTO",
+    pane: "overlayPane"
+  }
+);
 
+// Inicial
+satelite.addTo(map);
+labels.addTo(map);
+
+// Controle de camadas
 L.control.layers(
-  { "Mapa": mapaPadrao, "Satélite": mapaSatelite }
+  {
+    "Mapa": mapa,
+    "Satélite": satelite
+  },
+  {
+    "Nomes de ruas e cidades": labels
+  }
 ).addTo(map);
 
 // Estado
