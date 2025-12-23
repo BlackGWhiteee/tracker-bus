@@ -1,31 +1,34 @@
+alert("Mapa carregado corretamente");
+
+// MAPA
 var map = L.map("map").setView([-15.78, -47.93], 5);
 
-// Mapa normal
+// BASE MAPA NORMAL
 var mapa = L.tileLayer(
   "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
   { attribution: "© OpenStreetMap" }
 );
 
-// Satélite
+// SATÉLITE
 var satelite = L.tileLayer(
   "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
   { attribution: "Tiles © Esri" }
 );
 
-// Rótulos (cidades, ruas, bairros)
+// RÓTULOS (RUAS, CIDADES, BAIRROS)
 var labels = L.tileLayer(
-  "https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png",
+  "https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}.png",
   {
     attribution: "© OpenStreetMap, © CARTO",
     pane: "overlayPane"
   }
 );
 
-// Inicial
+// SATÉLITE + NOMES ATIVOS POR PADRÃO
 satelite.addTo(map);
 labels.addTo(map);
 
-// Controle de camadas
+// CONTROLE DE CAMADAS
 L.control.layers(
   {
     "Mapa": mapa,
@@ -36,18 +39,22 @@ L.control.layers(
   }
 ).addTo(map);
 
-// Estado
-let modo = null;
-let rotaAtual = { nome: "", paradas: [] };
-let marcadores = [];
-let linha = L.polyline([], { color: "blue" }).addTo(map);
+// ESTADO
+var modo = null;
+var rotaAtual = { nome: "", paradas: [] };
+var marcadores = [];
+var linha = L.polyline([], { color: "blue" }).addTo(map);
 
-// Funções
+// FUNÇÃO LINHA
 function atualizarLinha() {
-  linha.setLatLngs(rotaAtual.paradas.map(p => [p.lat, p.lng]));
+  linha.setLatLngs(
+    rotaAtual.paradas.map(function (p) {
+      return [p.lat, p.lng];
+    })
+  );
 }
 
-// Botões
+// BOTÕES
 document.getElementById("add").onclick = function () {
   modo = "add";
   alert("Clique no mapa para adicionar a parada");
@@ -65,11 +72,8 @@ document.getElementById("manual").onclick = function () {
 
 document.getElementById("gps").onclick = function () {
   navigator.geolocation.getCurrentPosition(function (pos) {
-    const latlng = [pos.coords.latitude, pos.coords.longitude];
-    L.marker(latlng)
-      .addTo(map)
-      .bindPopup("Você está aqui")
-      .openPopup();
+    var latlng = [pos.coords.latitude, pos.coords.longitude];
+    L.marker(latlng).addTo(map).bindPopup("Você está aqui").openPopup();
     map.setView(latlng, 15);
   });
 };
@@ -78,11 +82,11 @@ document.getElementById("save").onclick = function () {
   rotaAtual.nome =
     document.getElementById("routeName").value || "rota_sem_nome";
 
-  const data = JSON.stringify(rotaAtual, null, 2);
-  const blob = new Blob([data], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
+  var data = JSON.stringify(rotaAtual, null, 2);
+  var blob = new Blob([data], { type: "application/json" });
+  var url = URL.createObjectURL(blob);
 
-  const a = document.createElement("a");
+  var a = document.createElement("a");
   a.href = url;
   a.download = rotaAtual.nome + ".json";
   a.click();
@@ -90,24 +94,26 @@ document.getElementById("save").onclick = function () {
 
 document.getElementById("new").onclick = function () {
   rotaAtual = { nome: "", paradas: [] };
-  marcadores.forEach(m => map.removeLayer(m));
+  marcadores.forEach(function (m) {
+    map.removeLayer(m);
+  });
   marcadores = [];
   linha.setLatLngs([]);
   document.getElementById("routeName").value = "";
 };
 
-// Clique no mapa
+// CLIQUE NO MAPA
 map.on("click", function (e) {
   if (modo === "add") {
-    const nome = prompt("Nome da parada:");
-    const horario = prompt("Horário (opcional):");
+    var nome = prompt("Nome da parada:");
+    var horario = prompt("Horário (opcional):");
 
-    const marker = L.marker(e.latlng).addTo(map);
+    var marker = L.marker(e.latlng).addTo(map);
     marker.bindPopup("<b>" + nome + "</b><br>" + (horario || ""));
 
     marker.on("click", function () {
       if (modo === "remove") {
-        const i = marcadores.indexOf(marker);
+        var i = marcadores.indexOf(marker);
         if (i > -1) {
           map.removeLayer(marker);
           marcadores.splice(i, 1);
