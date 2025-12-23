@@ -2,10 +2,10 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gerenciador de Rotas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Leaflet CSS -->
+  <!-- Leaflet -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -15,22 +15,21 @@
 </head>
 <body>
 
-  <div id="map"></div>
+<div id="map"></div>
 
-  <div class="panel">
-    <input type="text" id="routeName" placeholder="Nome da rota" />
-    <button id="add">Adicionar parada</button>
-    <button id="remove" class="danger">Remover parada</button>
-    <button id="gps">Minha posição</button>
-    <button id="manual" class="secondary">Definir localização</button>
-    <button id="save">Salvar rota</button>
-    <button id="new" class="secondary">Nova rota</button>
-  </div>
+<div class="panel">
+  <input type="text" id="routeName" placeholder="Nome da rota" />
+  <button id="add">Adicionar parada</button>
+  <button id="remove" class="danger">Remover parada</button>
+  <button id="gps">Minha posição</button>
+  <button id="manual" class="secondary">Definir localização</button>
+  <button id="save">Salvar rota</button>
+  <button id="new" class="secondary">Nova rota</button>
+</div>
 
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="script.js"></script>
+<!-- Leaflet -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>
-
