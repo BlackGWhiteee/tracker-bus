@@ -7,9 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#6a1b9a" />
 
-  <!-- PWA -->
-  <link rel="manifest" href="manifest.json" />
-
   <!-- Leaflet -->
   <link
     rel="stylesheet"
@@ -27,54 +24,51 @@
 
 <body>
 
-<!-- ================== VIEWS ================== -->
+  <!-- ===== VIEWS ===== -->
 
-<!-- MAPA -->
-<div class="view active" id="view-map">
-  <div id="map"></div>
+  <!-- MAPA -->
+  <div class="view active" id="view-map">
+    <div id="map"></div>
 
-  <div class="panel">
-    <input id="routeName" placeholder="Nome da rota" />
-    <button id="add">Adicionar parada</button>
-    <button id="remove" class="danger">Remover parada</button>
-    <button id="gps">Minha posição</button>
-    <button id="save">Salvar rota</button>
-    <button id="new">Nova rota</button>
+    <div class="panel">
+      <input id="routeName" placeholder="Nome da rota" />
+      <button id="save">Salvar rota</button>
+      <button id="new">Nova rota</button>
+    </div>
   </div>
-</div>
 
-<!-- ROTAS SALVAS -->
-<div class="view" id="view-routes">
-  <div class="list">
-    <input id="search" placeholder="Pesquisar rota..." />
-    <ul id="routesList"></ul>
+  <!-- ROTAS -->
+  <div class="view" id="view-routes">
+    <div class="list">
+      <input id="search" placeholder="Pesquisar rota..." />
+      <ul id="routesList"></ul>
+    </div>
   </div>
-</div>
 
-<!-- DETALHES -->
-<div class="view" id="view-details">
-  <div class="details">
-    <h2 id="detailTitle"></h2>
-    <ul id="detailStops"></ul>
-    <button onclick="showView('view-routes')">Voltar</button>
+  <!-- DETALHES -->
+  <div class="view" id="view-details">
+    <div class="details">
+      <h2 id="detailTitle"></h2>
+      <ul id="detailStops"></ul>
+      <button onclick="showView('view-routes')">Voltar</button>
+    </div>
   </div>
-</div>
 
-<!-- ================== TABS ================== -->
-<nav class="tabs">
-  <button onclick="showView('view-map')">
-    <span class="material-symbols-outlined">map</span>
-    Mapa
-  </button>
-  <button onclick="showView('view-routes')">
-    <span class="material-symbols-outlined">route</span>
-    Rotas
-  </button>
-</nav>
+  <!-- ===== TABS FIXAS ===== -->
+  <nav class="tabs">
+    <button onclick="showView('view-map')">
+      <span class="material-symbols-outlined">map</span>
+      Mapa
+    </button>
+    <button onclick="showView('view-routes')">
+      <span class="material-symbols-outlined">route</span>
+      Rotas
+    </button>
+  </nav>
 
-<!-- SCRIPTS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js"></script>
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="script.js"></script>
 
 </body>
 </html>
