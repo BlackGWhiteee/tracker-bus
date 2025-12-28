@@ -10,7 +10,7 @@ html, body {
   height: 100%;
 }
 
-/* VIEWS */
+/* ===== VIEWS ===== */
 .view {
   display: none;
   width: 100%;
@@ -21,33 +21,46 @@ html, body {
   display: block;
 }
 
-/* MAPA */
+/* ===== MAPA ===== */
 #map {
   width: 100%;
-  height: calc(100vh - 56px); /* espaço da barra */
-  background: #e0e0e0;
+  height: calc(100vh - 56px); /* espaço da barra inferior */
 }
 
-/* PAINEL */
+/* ===== PAINEL DE CONTROLES ===== */
 .panel {
   position: fixed;
-  bottom: 66px; /* acima da barra */
-  left: 10px;
-  right: 10px;
-  background: white;
+  bottom: 66px;
+  left: 8px;
+  right: 8px;
+
+  background: #ffffff;
+  border-radius: 12px;
   padding: 8px;
-  display: flex;
-  gap: 6px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+
   z-index: 9000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .panel input,
 .panel button {
-  flex: 1;
+  width: 100%;
   padding: 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
 }
 
-/* LISTA */
+/* Botões desativados */
+.panel button:disabled {
+  opacity: 0.5;
+}
+
+/* ===== LISTA DE ROTAS ===== */
 .list {
   padding: 12px;
   padding-bottom: 70px;
@@ -64,26 +77,22 @@ html, body {
 }
 
 .list li {
-  padding: 10px;
+  padding: 12px;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
 }
 
-/* DETALHES */
-.details {
-  padding: 15px;
-  padding-bottom: 70px;
-}
-
-/* TABS FIXAS */
+/* ===== BARRA INFERIOR FIXA ===== */
 .tabs {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   height: 56px;
+
   background: #6a1b9a;
   display: flex;
+
   z-index: 10000;
 }
 
@@ -92,6 +101,7 @@ html, body {
   background: none;
   border: none;
   color: white;
+
   font-size: 12px;
   display: flex;
   flex-direction: column;
