@@ -1,51 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Gerenciador de Rotas</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#6a1b9a" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#6a1b9a">
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-  <link rel="stylesheet" href="style.css" />
+  <!-- Leaflet -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  >
+
+  <!-- Icons -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="view active" id="view-map">
-  <div id="map"></div>
+<!-- MAPA -->
+<div id="map"></div>
 
-  <div class="panel">
-    <input id="routeName" placeholder="Nome da rota" />
+<!-- CONTROLES -->
+<div class="controls">
+  <input id="routeName" placeholder="Nome da rota">
 
-    <button id="start">Iniciar rota</button>
-    <button id="addStop" disabled>Adicionar parada</button>
-    <button id="finish" disabled>Encerrar rota</button>
+  <button id="start">
+    <span class="material-symbols-outlined">play_arrow</span>
+    Iniciar
+  </button>
 
-    <button id="locate">Minha posição</button>
-    <button id="manual">Definir localização</button>
+  <button id="addStop" disabled>
+    <span class="material-symbols-outlined">add_location</span>
+    Parada
+  </button>
 
-    <button id="toggleLayer">Satélite / Mapa</button>
-  </div>
+  <button id="finish" disabled>
+    <span class="material-symbols-outlined">stop</span>
+    Encerrar
+  </button>
+
+  <button id="locate">
+    <span class="material-symbols-outlined">my_location</span>
+    Minha posição
+  </button>
 </div>
 
-<div class="view" id="view-routes">
-  <div class="list">
-    <input id="search" placeholder="Pesquisar rota..." />
-    <ul id="routesList"></ul>
-  </div>
-</div>
+<!-- BOTÃO SATÉLITE -->
+<button id="toggleLayer" class="fab">
+  <span class="material-symbols-outlined">satellite_alt</span>
+</button>
 
-<nav class="tabs">
-  <button onclick="showView('view-map')">
-    <span class="material-symbols-outlined">map</span>Mapa
-  </button>
-  <button onclick="showView('view-routes')">
-    <span class="material-symbols-outlined">route</span>Rotas
-  </button>
-</nav>
+<!-- LISTA DE ROTAS -->
+<div class="routes">
+  <input id="search" placeholder="Pesquisar rota">
+  <ul id="routesList"></ul>
+</div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="script.js"></script>
