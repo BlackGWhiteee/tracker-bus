@@ -1,146 +1,91 @@
-alert("Mapa carregado corretamente");
-
-// MAPA
-var map = L.map("map").setView([-15.78, -47.93], 5);
-
-// BASE MAPA NORMAL
-var mapa = L.tileLayer(
-  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-  { attribution: "© OpenStreetMap" }
-);
-
-// SATÉLITE
-var satelite = L.tileLayer(
-  "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-  { attribution: "Tiles © Esri" }
-);
-
-// RÓTULOS (RUAS, CIDADES, BAIRROS)
-var labels = L.tileLayer(
-  "https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}.png",
-  {
-    attribution: "© OpenStreetMap, © CARTO",
-    pane: "overlayPane"
-  }
-);
-
-// SATÉLITE + NOMES ATIVOS POR PADRÃO
-satelite.addTo(map);
-labels.addTo(map);
-
-// CONTROLE DE CAMADAS
-L.control.layers(
-  {
-    "Mapa": mapa,
-    "Satélite": satelite
-  },
-  {
-    "Nomes de ruas e cidades": labels
-  }
-).addTo(map);
-
-// ESTADO
-var modo = null;
-var rotaAtual = { nome: "", paradas: [] };
-var marcadores = [];
-var linha = L.polyline([], { color: "blue" }).addTo(map);
-
-// FUNÇÃO LINHA
-function atualizarLinha() {
-  linha.setLatLngs(
-    rotaAtual.paradas.map(function (p) {
-      return [p.lat, p.lng];
-    })
+// ======== NAVEGAÇÃO ========
+function showView(id) {
+  document.querySelectorAll(".view").forEach(v =>
+    v.classList.remove("active")
   );
+  document.getElementById(id).classList.add("active");
+
+  if (id === "view-routes") carregarLista();
 }
 
-// BOTÕES
-document.getElementById("add").onclick = function () {
-  modo = "add";
-  alert("Clique no mapa para adicionar a parada");
-};
+// ======== MAPA ========
+var map = L.map("map").setView([-15.78, -47.93], 5);
 
-document.getElementById("remove").onclick = function () {
-  modo = "remove";
-  alert("Clique na parada para remover");
-};
+L.tileLayer(
+  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  { attribution: "© OpenStreetMap" }
+).addTo(map);
 
-document.getElementById("manual").onclick = function () {
-  modo = "manual";
-  alert("Clique no mapa para definir sua localização");
-};
+// ======== ROTAS ========
+var rotaAtual = { nome: "", paradas: [] };
+var rotasSalvas = JSON.parse(localStorage.getItem("rotas")) || [];
+var marcadores = [];
+var linha = L.polyline([]).addTo(map);
 
-document.getElementById("gps").onclick = function () {
-  navigator.geolocation.getCurrentPosition(function (pos) {
-    var latlng = [pos.coords.latitude, pos.coords.longitude];
-    L.marker(latlng).addTo(map).bindPopup("Você está aqui").openPopup();
-    map.setView(latlng, 15);
+function atualizarLinha() {
+  linha.setLatLngs(rotaAtual.paradas.map(p => [p.lat, p.lng]));
+}
+
+// Clique no mapa
+map.on("click", function (e) {
+  var nome = prompt("Nome da parada:");
+  if (!nome) return;
+
+  var m = L.marker(e.latlng).addTo(map);
+  marcadores.push(m);
+
+  rotaAtual.paradas.push({
+    nome,
+    lat: e.latlng.lat,
+    lng: e.latlng.lng
   });
-};
 
+  atualizarLinha();
+});
+
+// ======== SALVAR ========
 document.getElementById("save").onclick = function () {
   rotaAtual.nome =
-    document.getElementById("routeName").value || "rota_sem_nome";
+    document.getElementById("routeName").value || "Sem nome";
 
-  var data = JSON.stringify(rotaAtual, null, 2);
-  var blob = new Blob([data], { type: "application/json" });
-  var url = URL.createObjectURL(blob);
+  rotasSalvas.push(JSON.parse(JSON.stringify(rotaAtual)));
+  localStorage.setItem("rotas", JSON.stringify(rotasSalvas));
 
-  var a = document.createElement("a");
-  a.href = url;
-  a.download = rotaAtual.nome + ".json";
-  a.click();
+  alert("Rota salva");
 };
 
-document.getElementById("new").onclick = function () {
-  rotaAtual = { nome: "", paradas: [] };
-  marcadores.forEach(function (m) {
-    map.removeLayer(m);
+// ======== LISTA + BUSCA ========
+function carregarLista() {
+  var ul = document.getElementById("routesList");
+  var termo = document.getElementById("search").value.toLowerCase();
+
+  ul.innerHTML = "";
+
+  rotasSalvas
+    .filter(r => r.nome.toLowerCase().includes(termo))
+    .forEach((rota, i) => {
+      var li = document.createElement("li");
+      li.innerText = rota.nome;
+      li.onclick = () => abrirDetalhes(i);
+      ul.appendChild(li);
+    });
+}
+
+document.getElementById("search").oninput = carregarLista;
+
+// ======== DETALHES ========
+function abrirDetalhes(i) {
+  var rota = rotasSalvas[i];
+  document.getElementById("detailTitle").innerText = rota.nome;
+
+  var ul = document.getElementById("detailStops");
+  ul.innerHTML = "";
+
+  rota.paradas.forEach(p => {
+    var li = document.createElement("li");
+    li.innerText = p.nome;
+    ul.appendChild(li);
   });
-  marcadores = [];
-  linha.setLatLngs([]);
-  document.getElementById("routeName").value = "";
-};
 
-// CLIQUE NO MAPA
-map.on("click", function (e) {
-  if (modo === "add") {
-    var nome = prompt("Nome da parada:");
-    var horario = prompt("Horário (opcional):");
-
-    var marker = L.marker(e.latlng).addTo(map);
-    marker.bindPopup("<b>" + nome + "</b><br>" + (horario || ""));
-
-    marker.on("click", function () {
-      if (modo === "remove") {
-        var i = marcadores.indexOf(marker);
-        if (i > -1) {
-          map.removeLayer(marker);
-          marcadores.splice(i, 1);
-          rotaAtual.paradas.splice(i, 1);
-          atualizarLinha();
-        }
-      }
-    });
-
-    marcadores.push(marker);
-    rotaAtual.paradas.push({
-      lat: e.latlng.lat,
-      lng: e.latlng.lng,
-      nome: nome,
-      horario: horario
-    });
-
-    atualizarLinha();
-    modo = null;
-  }
-
-  if (modo === "manual") {
-    L.marker(e.latlng)
-      .addTo(map)
-      .bindPopup("Localização definida")
-      .openPopup();
-    map.setView(e.latlng, 15);
-    modo = null;
-  }
-});
+  showView("view-details");
+}
