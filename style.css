@@ -8,6 +8,7 @@
 html, body {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 /* ===== VIEWS ===== */
@@ -24,43 +25,68 @@ html, body {
 /* ===== MAPA ===== */
 #map {
   width: 100%;
-  height: calc(100vh - 56px); /* espaço da barra inferior */
+  height: calc(100vh - 56px);
 }
 
-/* ===== PAINEL DE CONTROLES ===== */
+/* ===== PAINEL ===== */
 .panel {
   position: fixed;
-  bottom: 66px;
+  bottom: 56px;
   left: 8px;
   right: 8px;
 
+  max-height: 45vh;              /* 🔴 ESSENCIAL */
+  overflow-y: auto;              /* 🔴 ESSENCIAL */
+
   background: #ffffff;
-  border-radius: 12px;
-  padding: 8px;
+  border-radius: 14px;
+  padding: 10px;
 
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-columns: repeat(2, 1fr); /* padrão celular */
   gap: 8px;
 
   z-index: 9000;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
 }
 
+/* Inputs e botões */
 .panel input,
 .panel button {
   width: 100%;
+  min-height: 44px;              /* 🔴 padrão touch */
   padding: 10px;
   font-size: 14px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: 1px solid #ccc;
 }
 
-/* Botões desativados */
+/* Input ocupa linha inteira */
+.panel input {
+  grid-column: 1 / -1;
+}
+
+/* Botão desativado */
 .panel button:disabled {
   opacity: 0.5;
 }
 
-/* ===== LISTA DE ROTAS ===== */
+/* ===== TELAS MAIORES ===== */
+@media (min-width: 600px) {
+  .panel {
+    grid-template-columns: repeat(3, 1fr);
+    max-height: 35vh;
+  }
+}
+
+@media (min-width: 900px) {
+  .panel {
+    grid-template-columns: repeat(4, 1fr);
+    max-height: none;
+  }
+}
+
+/* ===== LISTA ===== */
 .list {
   padding: 12px;
   padding-bottom: 70px;
@@ -77,12 +103,12 @@ html, body {
 }
 
 .list li {
-  padding: 12px;
+  padding: 14px;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
 }
 
-/* ===== BARRA INFERIOR FIXA ===== */
+/* ===== BARRA INFERIOR ===== */
 .tabs {
   position: fixed;
   bottom: 0;
