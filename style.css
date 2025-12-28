@@ -27,13 +27,13 @@ html, body {
   border-radius: 16px;
 
   display: grid;
-  grid-template-columns: repeat(2, minmax(120px, 1fr));
+  grid-template-columns: repeat(2, minmax(130px, 1fr));
   gap: 8px;
 
   width: calc(100% - 24px);
-  max-width: 420px;
+  max-width: 440px;
 
-  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
   z-index: 9000;
 }
 
@@ -63,7 +63,7 @@ html, body {
   opacity: 0.5;
 }
 
-/* FAB SATÉLITE */
+/* BOTÃO SATÉLITE */
 .fab {
   position: fixed;
   top: 12px;
@@ -82,39 +82,6 @@ html, body {
   justify-content: center;
 
   z-index: 10000;
-}
-
-/* LISTA DE ROTAS */
-.routes {
-  position: fixed;
-  top: 12px;
-  left: 12px;
-
-  background: white;
-  width: 260px;
-  max-height: 60vh;
-
-  border-radius: 16px;
-  padding: 10px;
-
-  overflow-y: auto;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-}
-
-.routes input {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 6px;
-}
-
-.routes ul {
-  list-style: none;
-}
-
-.routes li {
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
-  cursor: pointer;
 }
 
 /* DESKTOP */
