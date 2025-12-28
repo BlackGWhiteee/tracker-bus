@@ -8,16 +8,10 @@
   <meta name="theme-color" content="#6a1b9a">
 
   <!-- Leaflet -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  >
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
-  <!-- Icons -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-    rel="stylesheet"
-  >
+  <!-- Ícones -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -50,18 +44,17 @@
     <span class="material-symbols-outlined">my_location</span>
     Minha posição
   </button>
+
+  <button id="manual">
+    <span class="material-symbols-outlined">edit_location</span>
+    Definir localização
+  </button>
 </div>
 
 <!-- BOTÃO SATÉLITE -->
-<button id="toggleLayer" class="fab">
+<button id="toggleLayer" class="fab" title="Mapa / Satélite">
   <span class="material-symbols-outlined">satellite_alt</span>
 </button>
-
-<!-- LISTA DE ROTAS -->
-<div class="routes">
-  <input id="search" placeholder="Pesquisar rota">
-  <ul id="routesList"></ul>
-</div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="script.js"></script>
