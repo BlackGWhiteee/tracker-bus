@@ -10,6 +10,7 @@ html, body {
   height: 100%;
 }
 
+/* VIEWS */
 .view {
   display: none;
   width: 100%;
@@ -20,50 +21,36 @@ html, body {
   display: block;
 }
 
+/* MAPA */
 #map {
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 56px); /* espaço da barra */
+  background: #e0e0e0;
 }
 
+/* PAINEL */
 .panel {
   position: fixed;
-  bottom: 60px;
+  bottom: 66px; /* acima da barra */
   left: 10px;
   right: 10px;
   background: white;
   padding: 8px;
   display: flex;
-  flex-wrap: wrap;
   gap: 6px;
-  z-index: 1000;
+  z-index: 9000;
 }
 
 .panel input,
 .panel button {
-  flex: 1 1 48%;
-  padding: 10px;
-}
-
-.tabs {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 56px;
-  background: #6a1b9a;
-  display: flex;
-}
-
-.tabs button {
   flex: 1;
-  color: white;
-  background: none;
-  border: none;
-  font-size: 12px;
+  padding: 10px;
 }
 
+/* LISTA */
 .list {
-  padding: 10px;
+  padding: 12px;
+  padding-bottom: 70px;
 }
 
 .list input {
@@ -82,6 +69,33 @@ html, body {
   cursor: pointer;
 }
 
+/* DETALHES */
 .details {
   padding: 15px;
+  padding-bottom: 70px;
+}
+
+/* TABS FIXAS */
+.tabs {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: #6a1b9a;
+  display: flex;
+  z-index: 10000;
+}
+
+.tabs button {
+  flex: 1;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
 }
