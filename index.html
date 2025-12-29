@@ -5,70 +5,35 @@
   <title>Gerenciador de Rotas</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Leaflet -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   />
-
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- ===== ABA MAPA ===== -->
-<section id="tabMap" class="tab active">
+<div id="app">
 
-  <header class="top-bar">
-    <span>Mapa</span>
-    <button id="btnToggleMap">🛰</button>
-  </header>
-
+  <!-- MAPA -->
   <div id="map"></div>
 
-  <!-- BOTÕES FLUTUANTES -->
-  <button id="btnLocate" class="fab left">📍</button>
-  <button id="btnDefine" class="fab right">📌</button>
-
-  <!-- BARRA DE AÇÕES -->
-  <div class="action-bar">
-    <button id="btnStartRoute">Iniciar rota</button>
+  <!-- BOTÕES -->
+  <div class="controls">
+    <button id="btnLocate">Minha posição</button>
+    <button id="btnDefine">Definir localização</button>
+    <button id="btnToggleMap">Satélite</button>
     <button id="btnAddStop">Adicionar parada</button>
     <button id="btnRemoveStop">Remover parada</button>
+    <button id="btnStartRoute">Iniciar rota</button>
     <button id="btnSaveRoute">Salvar rota</button>
     <button id="btnNewRoute">Nova rota</button>
   </div>
 
-</section>
-
-<!-- ===== ABA ROTAS ===== -->
-<section id="tabRoutes" class="tab">
-
-  <header class="top-bar">
-    <span>Rotas salvas</span>
-  </header>
-
-  <div class="routes-content">
-    <input type="text" id="searchRoute" placeholder="Pesquisar rota">
-    <ul id="routesList"></ul>
-  </div>
-
-</section>
-
-<!-- ===== BARRA INFERIOR FIXA ===== -->
-<nav class="bottom-bar">
-  <button id="goMap" class="active">
-    🗺
-    <span>Mapa</span>
-  </button>
-  <button id="goRoutes">
-    📂
-    <span>Rotas</span>
-  </button>
-</nav>
+</div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="script.js"></script>
-
 </body>
 </html>
