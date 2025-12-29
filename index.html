@@ -1,54 +1,45 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>Gerenciador de Rotas</title>
+  <meta charset="UTF-8">
+  <title>Rotas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#6a1b9a" />
-
-  <!-- Leaflet -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   />
-
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ===== TAB MAPA ===== -->
+<!-- ABA MAPA -->
 <div id="tabMap" class="tab active">
   <div id="map"></div>
 
-  <!-- TOPO -->
   <div class="top-bar">
     <span>Mapa</span>
     <button id="btnSatellite">🛰</button>
   </div>
 
-  <!-- FABs -->
   <button id="btnLocate" class="fab left">📍</button>
-  <button id="btnManual" class="fab left down">✏</button>
-  <button id="btnAddStop" class="fab right" disabled>➕</button>
+  <button id="btnAddStop" class="fab right">➕</button>
 
-  <!-- BOTÃO PRINCIPAL -->
   <button id="btnMain" class="main-btn">▶ Iniciar rota</button>
 </div>
 
-<!-- ===== TAB ROTAS ===== -->
+<!-- ABA ROTAS -->
 <div id="tabRoutes" class="tab">
   <div class="routes">
-    <h2>Rotas salvas</h2>
-    <input id="search" placeholder="Pesquisar rota" />
+    <h2>Rotas</h2>
     <ul id="routesList"></ul>
   </div>
 </div>
 
-<!-- ===== TAB BAR ===== -->
+<!-- TAB BAR -->
 <div class="tab-bar">
-  <button id="goMap" class="active">🗺<span>Mapa</span></button>
-  <button id="goRoutes">📋<span>Rotas</span></button>
+  <button id="goMap" class="active">Mapa</button>
+  <button id="goRoutes">Rotas</button>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
