@@ -10,61 +10,33 @@
   <!-- Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
-  <!-- Ícones -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- MAPA -->
 <div id="map"></div>
+
+<!-- TOPO -->
+<div class="top-bar">
+  <button id="btnRoutes">📋</button>
+  <span>Rotas</span>
+  <button id="btnSatellite">🛰</button>
+</div>
+
+<!-- BOTÕES FLUTUANTES -->
+<button id="btnLocate" class="fab left">📍</button>
+<button id="btnManual" class="fab left down">✏</button>
+<button id="btnAddStop" class="fab right" disabled>➕</button>
+
+<!-- BOTÃO PRINCIPAL -->
+<button id="btnMain" class="main-btn">▶ Iniciar rota</button>
 
 <!-- ABA ROTAS -->
 <div id="routesTab" class="routes hidden">
   <input id="search" placeholder="Pesquisar rota">
   <ul id="routesList"></ul>
 </div>
-
-<!-- CONTROLES -->
-<div class="controls">
-  <input id="routeName" placeholder="Nome da rota">
-
-  <button id="start">
-    <span class="material-symbols-outlined">play_arrow</span>
-    Iniciar
-  </button>
-
-  <button id="addStop" disabled>
-    <span class="material-symbols-outlined">add_location</span>
-    Parada
-  </button>
-
-  <button id="finish" disabled>
-    <span class="material-symbols-outlined">stop</span>
-    Encerrar
-  </button>
-
-  <button id="locate">
-    <span class="material-symbols-outlined">my_location</span>
-    Minha posição
-  </button>
-
-  <button id="manual">
-    <span class="material-symbols-outlined">edit_location</span>
-    Definir localização
-  </button>
-</div>
-
-<!-- FABs -->
-<button id="toggleLayer" class="fab right">
-  <span class="material-symbols-outlined">satellite_alt</span>
-</button>
-
-<button id="toggleRoutes" class="fab left">
-  <span class="material-symbols-outlined">list</span>
-</button>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="script.js"></script>
