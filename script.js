@@ -9,6 +9,7 @@ const ruas = L.tileLayer(
   "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
   { opacity: 0.5 }
 );
+
 mapa.addTo(map);
 
 let usandoSatelite = false;
@@ -23,6 +24,7 @@ let linha = L.polyline([], { color: "#6a1b9a" }).addTo(map);
 const btnMain = document.getElementById("btnMain");
 const btnAddStop = document.getElementById("btnAddStop");
 const btnSatellite = document.getElementById("btnSatellite");
+const btnLocate = document.getElementById("btnLocate");
 
 const tabMap = document.getElementById("tabMap");
 const tabRoutes = document.getElementById("tabRoutes");
@@ -42,7 +44,7 @@ function abrirTab(tab) {
   if (tab === "map") {
     tabMap.classList.add("active");
     goMap.classList.add("active");
-    map.invalidateSize();
+    setTimeout(() => map.invalidateSize(), 100);
   } else {
     tabRoutes.classList.add("active");
     goRoutes.classList.add("active");
@@ -52,6 +54,27 @@ function abrirTab(tab) {
 
 goMap.onclick = () => abrirTab("map");
 goRoutes.onclick = () => abrirTab("routes");
+
+// ===== SATÉLITE =====
+btnSatellite.onclick = () => {
+  if (usandoSatelite) {
+    map.removeLayer(satelite);
+    map.removeLayer(ruas);
+    mapa.addTo(map);
+  } else {
+    map.removeLayer(mapa);
+    satelite.addTo(map);
+    ruas.addTo(map);
+  }
+  usandoSatelite = !usandoSatelite;
+};
+
+// ===== LOCALIZAÇÃO =====
+btnLocate.onclick = () => {
+  navigator.geolocation.getCurrentPosition(pos => {
+    map.setView([pos.coords.latitude, pos.coords.longitude], 16);
+  });
+};
 
 // ===== ROTAS =====
 function salvarRotas() {
@@ -109,18 +132,4 @@ btnAddStop.onclick = () => {
       hora: new Date().toLocaleTimeString()
     });
   });
-};
-
-// ===== SATÉLITE =====
-btnSatellite.onclick = () => {
-  if (usandoSatelite) {
-    map.removeLayer(satelite);
-    map.removeLayer(ruas);
-    mapa.addTo(map);
-  } else {
-    map.removeLayer(mapa);
-    satelite.addTo(map);
-    ruas.addTo(map);
-  }
-  usandoSatelite = !usandoSatelite;
 };
