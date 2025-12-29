@@ -1,144 +1,33 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
 html, body {
   height: 100%;
-  width: 100%;
-  overflow: hidden;
+  margin: 0;
 }
 
-/* TABS */
-.tab {
-  display: none;
+#app {
   height: 100%;
-  width: 100%;
-}
-
-.tab.active {
-  display: block;
-}
-
-/* TOPO */
-.top-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 56px;
-  background: #6a1b9a;
-  color: #fff;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 16px;
-  z-index: 1000;
-}
-
-.top-bar button {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 22px;
+  flex-direction: column;
 }
 
 /* MAPA */
 #map {
-  position: absolute;
-  top: 56px;
-  bottom: 132px;
-  left: 0;
-  right: 0;
-}
-
-/* BOTÕES FLUTUANTES */
-.fab {
-  position: fixed;
-  bottom: 200px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: #fff;
-  border: none;
-  font-size: 22px;
-  z-index: 900;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-}
-
-.fab.left { left: 14px; }
-.fab.right { right: 14px; }
-
-/* BARRA DE AÇÕES */
-.action-bar {
-  position: fixed;
-  bottom: 56px;
-  left: 0;
-  right: 0;
-  height: 76px;
-  background: #fff;
-  display: flex;
-  overflow-x: auto;
-  border-top: 1px solid #ccc;
-  z-index: 900;
-}
-
-.action-bar button {
-  flex: none;
-  padding: 12px 16px;
-  border: none;
-  background: none;
-  font-size: 14px;
-  white-space: nowrap;
-}
-
-/* ROTAS */
-.routes-content {
-  padding: 72px 16px 80px;
-}
-
-.routes-content input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 12px;
-  font-size: 16px;
-}
-
-.routes-content ul {
-  list-style: none;
-}
-
-.routes-content li {
-  padding: 14px;
-  border-bottom: 1px solid #ddd;
-}
-
-/* BARRA INFERIOR */
-.bottom-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 56px;
-  background: #fff;
-  display: flex;
-  border-top: 1px solid #ccc;
-  z-index: 1000;
-}
-
-.bottom-bar button {
   flex: 1;
-  border: none;
-  background: none;
-  font-size: 13px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
-.bottom-bar button.active {
-  color: #6a1b9a;
+/* CONTROLES */
+.controls {
+  background: #6a1b9a;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.controls button {
+  flex: 1 1 45%;
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background: #fff;
 }
