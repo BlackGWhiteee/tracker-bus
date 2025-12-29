@@ -1,33 +1,125 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
 html, body {
   height: 100%;
-  margin: 0;
+  width: 100%;
+  overflow: hidden;
+  background: #f4f2f8;
 }
 
 #app {
   height: 100%;
+  position: relative;
+}
+
+/* HEADER */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: linear-gradient(135deg, #7b2cbf, #5a189a);
+  color: white;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 1000;
+}
+
+.top-bar button {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: white;
+  font-size: 20px;
+  border-radius: 8px;
+  padding: 6px 10px;
 }
 
 /* MAPA */
 #map {
-  flex: 1;
+  position: absolute;
+  top: 56px;
+  bottom: 132px;
+  left: 0;
+  right: 0;
 }
 
-/* CONTROLES */
-.controls {
-  background: #6a1b9a;
-  padding: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.controls button {
-  flex: 1 1 45%;
-  padding: 10px;
-  font-size: 14px;
+/* FAB */
+.fab {
+  position: fixed;
+  bottom: 200px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
   border: none;
-  border-radius: 6px;
-  background: #fff;
+  background: white;
+  font-size: 22px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  z-index: 900;
+}
+
+.fab.left { left: 16px; }
+.fab.right { right: 16px; }
+
+/* ACTION BAR */
+.action-bar {
+  position: fixed;
+  bottom: 56px;
+  left: 0;
+  right: 0;
+  height: 76px;
+  background: white;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  overflow-x: auto;
+  border-top: 1px solid #ddd;
+  z-index: 900;
+}
+
+.action-bar button {
+  flex: none;
+  padding: 10px 14px;
+  background: #7b2cbf;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+/* BOTTOM BAR */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: white;
+  display: flex;
+  border-top: 1px solid #ddd;
+  z-index: 1000;
+}
+
+.bottom-bar button {
+  flex: 1;
+  border: none;
+  background: none;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottom-bar button.active {
+  color: #7b2cbf;
+  font-weight: 600;
 }
