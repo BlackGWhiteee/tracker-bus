@@ -1,4 +1,3 @@
-// MAPA
 const map = L.map("map").setView([-15.78, -47.93], 5);
 
 const normal = L.tileLayer(
@@ -32,33 +31,15 @@ document.getElementById("btnToggleMap").onclick = () => {
   satOn = !satOn;
 };
 
-// LOCALIZAÇÃO AUTOMÁTICA
+// LOCALIZAÇÃO
 document.getElementById("btnLocate").onclick = () => {
   navigator.geolocation.getCurrentPosition(pos => {
     map.setView([pos.coords.latitude, pos.coords.longitude], 16);
   });
 };
 
-// DEFINIR LOCAL MANUAL
-document.getElementById("btnDefine").onclick = () => {
+document.getElementById("btnDefine").onclick = () =>
   alert("Clique no mapa para definir sua localização");
-};
-
-// BOTÕES (placeholder)
-document.getElementById("btnAddStop").onclick = () =>
-  alert("Adicionar parada");
-
-document.getElementById("btnRemoveStop").onclick = () =>
-  alert("Remover parada");
-
-document.getElementById("btnStartRoute").onclick = () =>
-  alert("Iniciar rota");
-
-document.getElementById("btnSaveRoute").onclick = () =>
-  alert("Salvar rota");
-
-document.getElementById("btnNewRoute").onclick = () =>
-  alert("Nova rota");
 
 // GARANTIA
 setTimeout(() => map.invalidateSize(), 300);
