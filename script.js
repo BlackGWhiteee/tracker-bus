@@ -1,7 +1,6 @@
-// ===== MAPA =====
+// MAPA
 const map = L.map("map").setView([-15.78, -47.93], 5);
 
-// CAMADAS
 const mapa = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
 const satelite = L.tileLayer(
   "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
@@ -15,97 +14,79 @@ mapa.addTo(map);
 
 let usandoSatelite = false;
 
-// ===== ESTADO =====
-let rotaAtual = null;
+// ESTADO
 let gravando = false;
-let watchId = null;
-let linha = L.polyline([], { color: "#6a1b9a" }).addTo(map);
-let marcadores = [];
+let rotaAtual = null;
 let rotas = JSON.parse(localStorage.getItem("rotas")) || [];
+let linha = L.polyline([], { color: "#6a1b9a" }).addTo(map);
 
-const hora = () => new Date().toLocaleTimeString();
+// ELEMENTOS
+const btnMain = document.getElementById("btnMain");
+const btnAddStop = document.getElementById("btnAddStop");
+const btnSatellite = document.getElementById("btnSatellite");
+const btnRoutes = document.getElementById("btnRoutes");
+const routesTab = document.getElementById("routesTab");
+const routesList = document.getElementById("routesList");
+const search = document.getElementById("search");
 
-// ===== ELEMENTOS =====
-const start = document.getElementById("start");
-const addStop = document.getElementById("addStop");
-const finish = document.getElementById("finish");
-const locate = document.getElementById("locate");
-const manual = document.getElementById("manual");
-const toggleLayer = document.getElementById("toggleLayer");
-
-// ===== INICIAR ROTA =====
-start.onclick = () => {
-  const nome = document.getElementById("routeName").value;
-  if (!nome) return alert("Informe o nome da rota");
-
-  rotaAtual = { nome, trajeto: [], paradas: [] };
-  gravando = true;
-
-  start.disabled = true;
-  addStop.disabled = false;
-  finish.disabled = false;
-
-  watchId = navigator.geolocation.watchPosition(pos => {
-    const { latitude, longitude } = pos.coords;
-    rotaAtual.trajeto.push({ lat: latitude, lng: longitude, hora: hora() });
-    linha.addLatLng([latitude, longitude]);
-    map.setView([latitude, longitude], 16);
-  });
-};
-
-// ===== PARADA =====
-addStop.onclick = () => {
-  if (!rotaAtual) return;
-  const nome = prompt("Nome da parada:");
-  if (!nome) return;
-
-  const p = rotaAtual.trajeto.at(-1);
-  rotaAtual.paradas.push({ ...p, nome });
-
-  const m = L.marker([p.lat, p.lng])
-    .addTo(map)
-    .bindPopup(`${nome}<br>${hora()}`);
-
-  marcadores.push(m);
-};
-
-// ===== ENCERRAR =====
-finish.onclick = () => {
-  navigator.geolocation.clearWatch(watchId);
-
-  rotas.push(rotaAtual);
+// FUNÇÕES
+function salvarRotas() {
   localStorage.setItem("rotas", JSON.stringify(rotas));
-  alert("Rota salva");
+}
 
-  linha.setLatLngs([]);
-  marcadores.forEach(m => map.removeLayer(m));
-  marcadores = [];
+function renderRotas(filtro = "") {
+  routesList.innerHTML = "";
+  rotas
+    .filter(r => r.nome.toLowerCase().includes(filtro.toLowerCase()))
+    .forEach((r, i) => {
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <span>${r.nome}</span>
+        <button onclick="excluirRota(${i})">🗑</button>
+      `;
+      routesList.appendChild(li);
+    });
+}
 
-  gravando = false;
-  rotaAtual = null;
-
-  start.disabled = false;
-  addStop.disabled = true;
-  finish.disabled = true;
+window.excluirRota = i => {
+  if (confirm("Excluir rota?")) {
+    rotas.splice(i, 1);
+    salvarRotas();
+    renderRotas(search.value);
+  }
 };
 
-// ===== MINHA POSIÇÃO =====
-locate.onclick = () => {
-  navigator.geolocation.getCurrentPosition(pos => {
-    map.setView([pos.coords.latitude, pos.coords.longitude], 16);
-  });
+// BOTÃO PRINCIPAL
+btnMain.onclick = () => {
+  gravando = !gravando;
+
+  if (gravando) {
+    rotaAtual = { nome: `Rota ${rotas.length + 1}`, pontos: [] };
+    linha.setLatLngs([]);
+    btnMain.textContent = "⏹ Encerrar rota";
+    btnAddStop.disabled = false;
+  } else {
+    rotas.push(rotaAtual);
+    salvarRotas();
+    btnMain.textContent = "▶ Iniciar rota";
+    btnAddStop.disabled = true;
+  }
 };
 
-// ===== DEFINIR MANUALMENTE =====
-manual.onclick = () => {
-  alert("Toque no mapa para definir sua localização");
+// ADICIONAR PARADA
+btnAddStop.onclick = () => {
   map.once("click", e => {
-    map.setView(e.latlng, 16);
+    linha.addLatLng(e.latlng);
+    rotaAtual.pontos.push({
+      lat: e.latlng.lat,
+      lng: e.latlng.lng,
+      hora: new Date().toLocaleTimeString()
+    });
   });
 };
 
-// ===== SATÉLITE =====
-toggleLayer.onclick = () => {
+// SATÉLITE
+btnSatellite.onclick = () => {
   if (usandoSatelite) {
     map.removeLayer(satelite);
     map.removeLayer(ruas);
@@ -117,3 +98,11 @@ toggleLayer.onclick = () => {
   }
   usandoSatelite = !usandoSatelite;
 };
+
+// ROTAS
+btnRoutes.onclick = () => {
+  routesTab.classList.toggle("hidden");
+  renderRotas();
+};
+
+search.oninput = e => renderRotas(e.target.value);
