@@ -2,45 +2,66 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Rotas</title>
+  <title>Gerenciador de Rotas</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- Leaflet -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   />
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<!-- ABA MAPA -->
+<!-- ===== TAB MAPA ===== -->
 <div id="tabMap" class="tab active">
+
+  <header class="top-bar">
+    <span>Mapa</span>
+    <button id="btnToggleMap">🛰</button>
+  </header>
+
   <div id="map"></div>
 
-  <div class="top-bar">
-    <span>Mapa</span>
-    <button id="btnSatellite">🛰</button>
+  <!-- BOTÕES LATERAIS -->
+  <button id="btnLocate" class="fab left">📍</button>
+  <button id="btnDefine" class="fab right">📌</button>
+
+  <!-- BOTÕES DE ROTA -->
+  <div class="action-bar">
+    <button id="btnStartRoute">Iniciar rota</button>
+    <button id="btnAddStop">Adicionar parada</button>
+    <button id="btnRemoveStop">Remover parada</button>
+    <button id="btnSaveRoute">Salvar rota</button>
+    <button id="btnNewRoute">Nova rota</button>
   </div>
 
-  <button id="btnLocate" class="fab left">📍</button>
-  <button id="btnAddStop" class="fab right">➕</button>
-
-  <button id="btnMain" class="main-btn">▶ Iniciar rota</button>
 </div>
 
-<!-- ABA ROTAS -->
+<!-- ===== TAB ROTAS ===== -->
 <div id="tabRoutes" class="tab">
-  <div class="routes">
-    <h2>Rotas</h2>
+  <header class="top-bar">
+    <span>Rotas salvas</span>
+  </header>
+
+  <div class="routes-content">
+    <input
+      type="text"
+      id="searchRoute"
+      placeholder="Pesquisar rota..."
+    />
     <ul id="routesList"></ul>
   </div>
 </div>
 
-<!-- TAB BAR -->
-<div class="tab-bar">
-  <button id="goMap" class="active">Mapa</button>
-  <button id="goRoutes">Rotas</button>
-</div>
+<!-- ===== BARRA FIXA INFERIOR ===== -->
+<nav class="bottom-bar">
+  <button id="goMap" class="active">🗺️<span>Mapa</span></button>
+  <button id="goRoutes">📂<span>Rotas</span></button>
+</nav>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="script.js"></script>
