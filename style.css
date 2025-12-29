@@ -39,6 +39,13 @@ html, body {
   z-index: 1000;
 }
 
+.top-bar button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 22px;
+}
+
 /* ===== FABs ===== */
 .fab {
   position: fixed;
@@ -78,10 +85,6 @@ html, body {
 .routes {
   padding: 16px;
   padding-bottom: 80px;
-}
-
-.routes h2 {
-  margin-bottom: 10px;
 }
 
 .routes input {
