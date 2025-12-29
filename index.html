@@ -16,8 +16,8 @@
 
 <body>
 
-<!-- ===== TAB MAPA ===== -->
-<div id="tabMap" class="tab active">
+<!-- ===== ABA MAPA ===== -->
+<section id="tabMap" class="tab active">
 
   <header class="top-bar">
     <span>Mapa</span>
@@ -26,11 +26,11 @@
 
   <div id="map"></div>
 
-  <!-- BOTÕES LATERAIS -->
+  <!-- BOTÕES FLUTUANTES -->
   <button id="btnLocate" class="fab left">📍</button>
   <button id="btnDefine" class="fab right">📌</button>
 
-  <!-- BOTÕES DE ROTA -->
+  <!-- BARRA DE AÇÕES -->
   <div class="action-bar">
     <button id="btnStartRoute">Iniciar rota</button>
     <button id="btnAddStop">Adicionar parada</button>
@@ -39,31 +39,36 @@
     <button id="btnNewRoute">Nova rota</button>
   </div>
 
-</div>
+</section>
 
-<!-- ===== TAB ROTAS ===== -->
-<div id="tabRoutes" class="tab">
+<!-- ===== ABA ROTAS ===== -->
+<section id="tabRoutes" class="tab">
+
   <header class="top-bar">
     <span>Rotas salvas</span>
   </header>
 
   <div class="routes-content">
-    <input
-      type="text"
-      id="searchRoute"
-      placeholder="Pesquisar rota..."
-    />
+    <input type="text" id="searchRoute" placeholder="Pesquisar rota">
     <ul id="routesList"></ul>
   </div>
-</div>
 
-<!-- ===== BARRA FIXA INFERIOR ===== -->
+</section>
+
+<!-- ===== BARRA INFERIOR FIXA ===== -->
 <nav class="bottom-bar">
-  <button id="goMap" class="active">🗺️<span>Mapa</span></button>
-  <button id="goRoutes">📂<span>Rotas</span></button>
+  <button id="goMap" class="active">
+    🗺
+    <span>Mapa</span>
+  </button>
+  <button id="goRoutes">
+    📂
+    <span>Rotas</span>
+  </button>
 </nav>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="script.js"></script>
+
 </body>
 </html>
