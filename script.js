@@ -1,41 +1,45 @@
-// ===== MAPA =====
-const map = L.map("map").setView([-15.78, -47.93], 5);
-
-const mapa = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
-const satelite = L.tileLayer(
-  "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-);
-const ruas = L.tileLayer(
-  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-  { opacity: 0.5 }
-);
-
-mapa.addTo(map);
-
-let usandoSatelite = false;
-
-// ===== ESTADO =====
-let gravando = false;
-let rotaAtual = null;
-let rotas = JSON.parse(localStorage.getItem("rotas")) || [];
-let linha = L.polyline([], { color: "#6a1b9a" }).addTo(map);
-
-// ===== ELEMENTOS =====
-const btnMain = document.getElementById("btnMain");
-const btnAddStop = document.getElementById("btnAddStop");
-const btnSatellite = document.getElementById("btnSatellite");
-const btnLocate = document.getElementById("btnLocate");
-
 const tabMap = document.getElementById("tabMap");
 const tabRoutes = document.getElementById("tabRoutes");
 const goMap = document.getElementById("goMap");
 const goRoutes = document.getElementById("goRoutes");
 
-const routesList = document.getElementById("routesList");
-const search = document.getElementById("search");
+const map = L.map("map").setView([-15.78, -47.93], 5);
 
-// ===== TABS =====
-function abrirTab(tab) {
+const normal = L.tileLayer(
+  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+).addTo(map);
+
+const satellite = L.tileLayer(
+  "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+);
+
+let satOn = false;
+
+document.getElementById("btnToggleMap").onclick = () => {
+  if (satOn) {
+    map.removeLayer(satellite);
+    normal.addTo(map);
+  } else {
+    map.removeLayer(normal);
+    satellite.addTo(map);
+  }
+  satOn = !satOn;
+};
+
+// LOCALIZAÇÃO
+document.getElementById("btnLocate").onclick = () => {
+  navigator.geolocation.getCurrentPosition(pos => {
+    map.setView([pos.coords.latitude, pos.coords.longitude], 16);
+  });
+};
+
+// DEFINIR LOCAL MANUAL
+document.getElementById("btnDefine").onclick = () => {
+  alert("Clique no mapa para definir sua localização");
+};
+
+// TABS
+function abrir(tab) {
   tabMap.classList.remove("active");
   tabRoutes.classList.remove("active");
   goMap.classList.remove("active");
@@ -44,92 +48,15 @@ function abrirTab(tab) {
   if (tab === "map") {
     tabMap.classList.add("active");
     goMap.classList.add("active");
-    setTimeout(() => map.invalidateSize(), 100);
+    setTimeout(() => map.invalidateSize(), 200);
   } else {
     tabRoutes.classList.add("active");
     goRoutes.classList.add("active");
-    renderRotas();
   }
 }
 
-goMap.onclick = () => abrirTab("map");
-goRoutes.onclick = () => abrirTab("routes");
+goMap.onclick = () => abrir("map");
+goRoutes.onclick = () => abrir("routes");
 
-// ===== SATÉLITE =====
-btnSatellite.onclick = () => {
-  if (usandoSatelite) {
-    map.removeLayer(satelite);
-    map.removeLayer(ruas);
-    mapa.addTo(map);
-  } else {
-    map.removeLayer(mapa);
-    satelite.addTo(map);
-    ruas.addTo(map);
-  }
-  usandoSatelite = !usandoSatelite;
-};
-
-// ===== LOCALIZAÇÃO =====
-btnLocate.onclick = () => {
-  navigator.geolocation.getCurrentPosition(pos => {
-    map.setView([pos.coords.latitude, pos.coords.longitude], 16);
-  });
-};
-
-// ===== ROTAS =====
-function salvarRotas() {
-  localStorage.setItem("rotas", JSON.stringify(rotas));
-}
-
-function renderRotas(filtro = "") {
-  routesList.innerHTML = "";
-  rotas
-    .filter(r => r.nome.toLowerCase().includes(filtro.toLowerCase()))
-    .forEach((r, i) => {
-      const li = document.createElement("li");
-      li.innerHTML = `
-        <span>${r.nome}</span>
-        <button onclick="excluirRota(${i})">🗑</button>
-      `;
-      routesList.appendChild(li);
-    });
-}
-
-window.excluirRota = i => {
-  if (confirm("Excluir rota?")) {
-    rotas.splice(i, 1);
-    salvarRotas();
-    renderRotas(search.value);
-  }
-};
-
-search.oninput = e => renderRotas(e.target.value);
-
-// ===== BOTÃO PRINCIPAL =====
-btnMain.onclick = () => {
-  gravando = !gravando;
-
-  if (gravando) {
-    rotaAtual = { nome: `Rota ${rotas.length + 1}`, pontos: [] };
-    linha.setLatLngs([]);
-    btnMain.textContent = "⏹ Encerrar rota";
-    btnAddStop.disabled = false;
-  } else {
-    rotas.push(rotaAtual);
-    salvarRotas();
-    btnMain.textContent = "▶ Iniciar rota";
-    btnAddStop.disabled = true;
-  }
-};
-
-// ===== PARADAS =====
-btnAddStop.onclick = () => {
-  map.once("click", e => {
-    linha.addLatLng(e.latlng);
-    rotaAtual.pontos.push({
-      lat: e.latlng.lat,
-      lng: e.latlng.lng,
-      hora: new Date().toLocaleTimeString()
-    });
-  });
-};
+// GARANTIA
+setTimeout(() => map.invalidateSize(), 300);
