@@ -21,6 +21,12 @@
 <!-- MAPA -->
 <div id="map"></div>
 
+<!-- ABA ROTAS -->
+<div id="routesTab" class="routes hidden">
+  <input id="search" placeholder="Pesquisar rota">
+  <ul id="routesList"></ul>
+</div>
+
 <!-- CONTROLES -->
 <div class="controls">
   <input id="routeName" placeholder="Nome da rota">
@@ -51,13 +57,16 @@
   </button>
 </div>
 
-<!-- BOTÃO SATÉLITE -->
-<button id="toggleLayer" class="fab" title="Mapa / Satélite">
+<!-- FABs -->
+<button id="toggleLayer" class="fab right">
   <span class="material-symbols-outlined">satellite_alt</span>
+</button>
+
+<button id="toggleRoutes" class="fab left">
+  <span class="material-symbols-outlined">list</span>
 </button>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="script.js"></script>
-
 </body>
 </html>
