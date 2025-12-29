@@ -15,6 +15,7 @@ html, body {
 .tab {
   display: none;
   height: 100%;
+  width: 100%;
 }
 
 .tab.active {
@@ -29,7 +30,7 @@ html, body {
   right: 0;
   height: 56px;
   background: #6a1b9a;
-  color: white;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -40,7 +41,7 @@ html, body {
 .top-bar button {
   background: none;
   border: none;
-  color: white;
+  color: #fff;
   font-size: 22px;
 }
 
@@ -48,7 +49,7 @@ html, body {
 #map {
   position: absolute;
   top: 56px;
-  bottom: 120px;
+  bottom: 132px;
   left: 0;
   right: 0;
 }
@@ -56,29 +57,32 @@ html, body {
 /* BOTÕES FLUTUANTES */
 .fab {
   position: fixed;
-  bottom: 190px;
-  width: 48px;
-  height: 48px;
+  bottom: 200px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background: white;
+  background: #fff;
   border: none;
   font-size: 22px;
   z-index: 900;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
 
-.fab.left { left: 12px; }
-.fab.right { right: 12px; }
+.fab.left { left: 14px; }
+.fab.right { right: 14px; }
 
-/* AÇÕES */
+/* BARRA DE AÇÕES */
 .action-bar {
   position: fixed;
   bottom: 56px;
   left: 0;
   right: 0;
-  background: white;
+  height: 76px;
+  background: #fff;
   display: flex;
   overflow-x: auto;
   border-top: 1px solid #ccc;
+  z-index: 900;
 }
 
 .action-bar button {
@@ -87,6 +91,7 @@ html, body {
   border: none;
   background: none;
   font-size: 14px;
+  white-space: nowrap;
 }
 
 /* ROTAS */
@@ -98,6 +103,7 @@ html, body {
   width: 100%;
   padding: 10px;
   margin-bottom: 12px;
+  font-size: 16px;
 }
 
 .routes-content ul {
@@ -105,18 +111,18 @@ html, body {
 }
 
 .routes-content li {
-  padding: 12px;
+  padding: 14px;
   border-bottom: 1px solid #ddd;
 }
 
-/* BARRA INFERIOR FIXA */
+/* BARRA INFERIOR */
 .bottom-bar {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   height: 56px;
-  background: white;
+  background: #fff;
   display: flex;
   border-top: 1px solid #ccc;
   z-index: 1000;
@@ -126,7 +132,7 @@ html, body {
   flex: 1;
   border: none;
   background: none;
-  font-size: 14px;
+  font-size: 13px;
   display: flex;
   flex-direction: column;
   align-items: center;
