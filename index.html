@@ -7,35 +7,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#6a1b9a">
 
-  <!-- Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div id="map"></div>
+<!-- ===== ABA MAPA ===== -->
+<div id="tabMap" class="tab active">
+  <div id="map"></div>
 
-<!-- TOPO -->
-<div class="top-bar">
-  <button id="btnRoutes">📋</button>
-  <span>Rotas</span>
-  <button id="btnSatellite">🛰</button>
+  <!-- TOPO -->
+  <div class="top-bar">
+    <span>Mapa</span>
+    <button id="btnSatellite">🛰</button>
+  </div>
+
+  <!-- FABs -->
+  <button id="btnLocate" class="fab left">📍</button>
+  <button id="btnManual" class="fab left down">✏</button>
+  <button id="btnAddStop" class="fab right" disabled>➕</button>
+
+  <!-- BOTÃO PRINCIPAL -->
+  <button id="btnMain" class="main-btn">▶ Iniciar rota</button>
 </div>
 
-<!-- BOTÕES FLUTUANTES -->
-<button id="btnLocate" class="fab left">📍</button>
-<button id="btnManual" class="fab left down">✏</button>
-<button id="btnAddStop" class="fab right" disabled>➕</button>
+<!-- ===== ABA ROTAS ===== -->
+<div id="tabRoutes" class="tab">
+  <div class="routes">
+    <h2>Rotas salvas</h2>
+    <input id="search" placeholder="Pesquisar rota">
+    <ul id="routesList"></ul>
+  </div>
+</div>
 
-<!-- BOTÃO PRINCIPAL -->
-<button id="btnMain" class="main-btn">▶ Iniciar rota</button>
-
-<!-- ABA ROTAS -->
-<div id="routesTab" class="routes hidden">
-  <input id="search" placeholder="Pesquisar rota">
-  <ul id="routesList"></ul>
+<!-- ===== TAB BAR ===== -->
+<div class="tab-bar">
+  <button id="goMap" class="active">🗺<span>Mapa</span></button>
+  <button id="goRoutes">📋<span>Rotas</span></button>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
