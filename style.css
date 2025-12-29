@@ -1,22 +1,29 @@
 * {
   box-sizing: border-box;
   margin: 0;
-  padding: 0;
   font-family: Arial, sans-serif;
 }
 
-html, body, #map {
-  width: 100%;
+html, body {
   height: 100%;
 }
 
-/* MAPA */
-#map {
-  position: absolute;
-  inset: 0;
+/* ===== TABS ===== */
+.tab {
+  display: none;
+  height: 100%;
 }
 
-/* TOPO */
+.tab.active {
+  display: block;
+}
+
+/* ===== MAPA ===== */
+#map {
+  height: 100%;
+}
+
+/* ===== TOPO ===== */
 .top-bar {
   position: fixed;
   top: 0;
@@ -25,23 +32,14 @@ html, body, #map {
   height: 52px;
   background: #6a1b9a;
   color: white;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   padding: 0 12px;
-  z-index: 10000;
+  z-index: 1000;
 }
 
-.top-bar button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 22px;
-}
-
-/* BOTÕES FLUTUANTES */
+/* ===== FABs ===== */
 .fab {
   position: fixed;
   width: 48px;
@@ -51,58 +49,79 @@ html, body, #map {
   background: white;
   font-size: 22px;
   box-shadow: 0 4px 12px rgba(0,0,0,.3);
-  z-index: 9000;
+  z-index: 900;
 }
 
 .left { left: 12px; bottom: 120px; }
 .left.down { bottom: 60px; }
 .right { right: 12px; bottom: 90px; }
 
-/* BOTÃO PRINCIPAL */
+/* ===== BOTÃO PRINCIPAL ===== */
 .main-btn {
   position: fixed;
-  bottom: 16px;
+  bottom: 72px;
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 32px);
   max-width: 420px;
   height: 56px;
-
   background: #6a1b9a;
   color: white;
   font-size: 18px;
   border: none;
   border-radius: 28px;
   box-shadow: 0 6px 18px rgba(0,0,0,.4);
-
-  z-index: 10000;
+  z-index: 900;
 }
 
-/* ROTAS */
+/* ===== ROTAS ===== */
 .routes {
-  position: fixed;
-  inset: 0;
-  background: white;
-  z-index: 11000;
   padding: 16px;
-  overflow-y: auto;
+  padding-bottom: 80px;
 }
 
-.routes.hidden {
-  display: none;
+.routes h2 {
+  margin-bottom: 10px;
 }
 
 .routes input {
   width: 100%;
   padding: 10px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .routes li {
   list-style: none;
   padding: 10px;
-  border-bottom: 1px solid #eee;
-
+  border-bottom: 1px solid #ddd;
   display: flex;
   justify-content: space-between;
+}
+
+/* ===== TAB BAR ===== */
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: white;
+  display: flex;
+  border-top: 1px solid #ccc;
+  z-index: 2000;
+}
+
+.tab-bar button {
+  flex: 1;
+  border: none;
+  background: none;
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab-bar button.active {
+  color: #6a1b9a;
 }
