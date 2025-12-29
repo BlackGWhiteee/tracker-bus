@@ -1,4 +1,4 @@
-// MAPA
+// ===== MAPA =====
 const map = L.map("map").setView([-15.78, -47.93], 5);
 
 const mapa = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
@@ -9,27 +9,51 @@ const ruas = L.tileLayer(
   "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
   { opacity: 0.5 }
 );
-
 mapa.addTo(map);
 
 let usandoSatelite = false;
 
-// ESTADO
+// ===== ESTADO =====
 let gravando = false;
 let rotaAtual = null;
 let rotas = JSON.parse(localStorage.getItem("rotas")) || [];
 let linha = L.polyline([], { color: "#6a1b9a" }).addTo(map);
 
-// ELEMENTOS
+// ===== ELEMENTOS =====
 const btnMain = document.getElementById("btnMain");
 const btnAddStop = document.getElementById("btnAddStop");
 const btnSatellite = document.getElementById("btnSatellite");
-const btnRoutes = document.getElementById("btnRoutes");
-const routesTab = document.getElementById("routesTab");
+
+const tabMap = document.getElementById("tabMap");
+const tabRoutes = document.getElementById("tabRoutes");
+const goMap = document.getElementById("goMap");
+const goRoutes = document.getElementById("goRoutes");
+
 const routesList = document.getElementById("routesList");
 const search = document.getElementById("search");
 
-// FUNÇÕES
+// ===== TABS =====
+function abrirTab(tab) {
+  tabMap.classList.remove("active");
+  tabRoutes.classList.remove("active");
+  goMap.classList.remove("active");
+  goRoutes.classList.remove("active");
+
+  if (tab === "map") {
+    tabMap.classList.add("active");
+    goMap.classList.add("active");
+    map.invalidateSize();
+  } else {
+    tabRoutes.classList.add("active");
+    goRoutes.classList.add("active");
+    renderRotas();
+  }
+}
+
+goMap.onclick = () => abrirTab("map");
+goRoutes.onclick = () => abrirTab("routes");
+
+// ===== ROTAS =====
 function salvarRotas() {
   localStorage.setItem("rotas", JSON.stringify(rotas));
 }
@@ -56,7 +80,9 @@ window.excluirRota = i => {
   }
 };
 
-// BOTÃO PRINCIPAL
+search.oninput = e => renderRotas(e.target.value);
+
+// ===== BOTÃO PRINCIPAL =====
 btnMain.onclick = () => {
   gravando = !gravando;
 
@@ -73,7 +99,7 @@ btnMain.onclick = () => {
   }
 };
 
-// ADICIONAR PARADA
+// ===== PARADAS =====
 btnAddStop.onclick = () => {
   map.once("click", e => {
     linha.addLatLng(e.latlng);
@@ -85,7 +111,7 @@ btnAddStop.onclick = () => {
   });
 };
 
-// SATÉLITE
+// ===== SATÉLITE =====
 btnSatellite.onclick = () => {
   if (usandoSatelite) {
     map.removeLayer(satelite);
@@ -98,11 +124,3 @@ btnSatellite.onclick = () => {
   }
   usandoSatelite = !usandoSatelite;
 };
-
-// ROTAS
-btnRoutes.onclick = () => {
-  routesTab.classList.toggle("hidden");
-  renderRotas();
-};
-
-search.oninput = e => renderRotas(e.target.value);
