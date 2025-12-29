@@ -1,5 +1,6 @@
 * {
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
@@ -13,18 +14,11 @@ html, body {
 /* TABS */
 .tab {
   display: none;
-  width: 100%;
   height: 100%;
 }
 
 .tab.active {
   display: block;
-}
-
-/* MAPA — ALTURA FIXA */
-#map {
-  width: 100%;
-  height: 100vh;
 }
 
 /* TOPO */
@@ -33,13 +27,13 @@ html, body {
   top: 0;
   left: 0;
   right: 0;
-  height: 52px;
+  height: 56px;
   background: #6a1b9a;
   color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 12px;
+  padding: 0 16px;
   z-index: 1000;
 }
 
@@ -50,10 +44,19 @@ html, body {
   font-size: 22px;
 }
 
-/* FABs */
+/* MAPA */
+#map {
+  position: absolute;
+  top: 56px;
+  bottom: 120px;
+  left: 0;
+  right: 0;
+}
+
+/* BOTÕES FLUTUANTES */
 .fab {
   position: fixed;
-  bottom: 120px;
+  bottom: 190px;
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -63,34 +66,51 @@ html, body {
   z-index: 900;
 }
 
-.left { left: 12px; }
-.right { right: 12px; }
+.fab.left { left: 12px; }
+.fab.right { right: 12px; }
 
-/* BOTÃO PRINCIPAL */
-.main-btn {
+/* AÇÕES */
+.action-bar {
   position: fixed;
-  bottom: 70px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 32px);
-  max-width: 420px;
-  height: 56px;
-  background: #6a1b9a;
-  color: white;
-  font-size: 18px;
+  bottom: 56px;
+  left: 0;
+  right: 0;
+  background: white;
+  display: flex;
+  overflow-x: auto;
+  border-top: 1px solid #ccc;
+}
+
+.action-bar button {
+  flex: none;
+  padding: 12px 16px;
   border: none;
-  border-radius: 28px;
-  z-index: 900;
+  background: none;
+  font-size: 14px;
 }
 
 /* ROTAS */
-.routes {
-  padding: 16px;
-  padding-top: 70px;
+.routes-content {
+  padding: 72px 16px 80px;
 }
 
-/* TAB BAR */
-.tab-bar {
+.routes-content input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+.routes-content ul {
+  list-style: none;
+}
+
+.routes-content li {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* BARRA INFERIOR FIXA */
+.bottom-bar {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -99,15 +119,20 @@ html, body {
   background: white;
   display: flex;
   border-top: 1px solid #ccc;
+  z-index: 1000;
 }
 
-.tab-bar button {
+.bottom-bar button {
   flex: 1;
   border: none;
   background: none;
-  font-size: 16px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.tab-bar button.active {
+.bottom-bar button.active {
   color: #6a1b9a;
 }
