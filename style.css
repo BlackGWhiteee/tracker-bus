@@ -1,16 +1,19 @@
 * {
-  box-sizing: border-box;
   margin: 0;
+  box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
 
 html, body {
   height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
-/* ===== TABS ===== */
+/* TABS */
 .tab {
   display: none;
+  width: 100%;
   height: 100%;
 }
 
@@ -18,12 +21,13 @@ html, body {
   display: block;
 }
 
-/* ===== MAPA ===== */
+/* MAPA — ALTURA FIXA */
 #map {
-  height: 100%;
+  width: 100%;
+  height: 100vh;
 }
 
-/* ===== TOPO ===== */
+/* TOPO */
 .top-bar {
   position: fixed;
   top: 0;
@@ -46,27 +50,26 @@ html, body {
   font-size: 22px;
 }
 
-/* ===== FABs ===== */
+/* FABs */
 .fab {
   position: fixed;
+  bottom: 120px;
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: none;
   background: white;
+  border: none;
   font-size: 22px;
-  box-shadow: 0 4px 12px rgba(0,0,0,.3);
   z-index: 900;
 }
 
-.left { left: 12px; bottom: 120px; }
-.left.down { bottom: 60px; }
-.right { right: 12px; bottom: 90px; }
+.left { left: 12px; }
+.right { right: 12px; }
 
-/* ===== BOTÃO PRINCIPAL ===== */
+/* BOTÃO PRINCIPAL */
 .main-btn {
   position: fixed;
-  bottom: 72px;
+  bottom: 70px;
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 32px);
@@ -77,31 +80,16 @@ html, body {
   font-size: 18px;
   border: none;
   border-radius: 28px;
-  box-shadow: 0 6px 18px rgba(0,0,0,.4);
   z-index: 900;
 }
 
-/* ===== ROTAS ===== */
+/* ROTAS */
 .routes {
   padding: 16px;
-  padding-bottom: 80px;
+  padding-top: 70px;
 }
 
-.routes input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.routes li {
-  list-style: none;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-  display: flex;
-  justify-content: space-between;
-}
-
-/* ===== TAB BAR ===== */
+/* TAB BAR */
 .tab-bar {
   position: fixed;
   bottom: 0;
@@ -111,18 +99,13 @@ html, body {
   background: white;
   display: flex;
   border-top: 1px solid #ccc;
-  z-index: 2000;
 }
 
 .tab-bar button {
   flex: 1;
   border: none;
   background: none;
-  font-size: 18px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  font-size: 16px;
 }
 
 .tab-bar button.active {
