@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Gerenciador de Rotas</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#6a1b9a">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#6a1b9a" />
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="style.css">
+  <!-- Leaflet -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-<!-- ===== ABA MAPA ===== -->
+<!-- ===== TAB MAPA ===== -->
 <div id="tabMap" class="tab active">
   <div id="map"></div>
 
@@ -32,11 +36,11 @@
   <button id="btnMain" class="main-btn">▶ Iniciar rota</button>
 </div>
 
-<!-- ===== ABA ROTAS ===== -->
+<!-- ===== TAB ROTAS ===== -->
 <div id="tabRoutes" class="tab">
   <div class="routes">
     <h2>Rotas salvas</h2>
-    <input id="search" placeholder="Pesquisar rota">
+    <input id="search" placeholder="Pesquisar rota" />
     <ul id="routesList"></ul>
   </div>
 </div>
