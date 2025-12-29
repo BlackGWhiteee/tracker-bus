@@ -8,21 +8,11 @@
 html, body {
   height: 100%;
   width: 100%;
-  overflow: hidden;
   background: #f4f2f8;
 }
 
-#app {
-  height: 100%;
-  position: relative;
-}
-
-/* HEADER */
+/* TOPO */
 .top-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
   height: 56px;
   background: linear-gradient(135deg, #7b2cbf, #5a189a);
   color: white;
@@ -30,96 +20,37 @@ html, body {
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
-  z-index: 1000;
-}
-
-.top-bar button {
-  background: rgba(255,255,255,0.2);
-  border: none;
-  color: white;
-  font-size: 20px;
-  border-radius: 8px;
-  padding: 6px 10px;
 }
 
 /* MAPA */
 #map {
-  position: absolute;
-  top: 56px;
-  bottom: 132px;
-  left: 0;
-  right: 0;
+  height: calc(100vh - 56px - 88px);
+  width: 100%;
 }
 
-/* FAB */
-.fab {
-  position: fixed;
-  bottom: 200px;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  border: none;
-  background: white;
-  font-size: 22px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  z-index: 900;
-}
-
-.fab.left { left: 16px; }
-.fab.right { right: 16px; }
-
-/* ACTION BAR */
+/* BARRA DE AÇÕES */
 .action-bar {
-  position: fixed;
-  bottom: 56px;
-  left: 0;
-  right: 0;
-  height: 76px;
+  height: 88px;
   background: white;
   display: flex;
-  gap: 8px;
-  padding: 8px;
-  overflow-x: auto;
-  border-top: 1px solid #ddd;
-  z-index: 900;
+  gap: 12px;
+  padding: 14px;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
 }
 
 .action-bar button {
-  flex: none;
-  padding: 10px 14px;
-  background: #7b2cbf;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  font-size: 14px;
-  white-space: nowrap;
-}
-
-/* BOTTOM BAR */
-.bottom-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 56px;
-  background: white;
-  display: flex;
-  border-top: 1px solid #ddd;
-  z-index: 1000;
-}
-
-.bottom-bar button {
   flex: 1;
   border: none;
-  background: none;
-  font-size: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #9d4edd, #7b2cbf);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+  transition: transform .15s ease, box-shadow .15s ease;
 }
 
-.bottom-bar button.active {
-  color: #7b2cbf;
-  font-weight: 600;
+.action-bar button:active {
+  transform: scale(0.96);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
